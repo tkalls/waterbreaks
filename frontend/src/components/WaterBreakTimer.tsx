@@ -11,8 +11,19 @@ export function WaterBreakTimer({ deadlineMs, locked }: { deadlineMs: number; lo
   }, [deadlineMs]);
 
   const totalSecs = Math.ceil(remaining / 1000);
-  const mm = String(Math.floor(totalSecs / 60)).padStart(2, "0");
-  const ss = String(totalSecs % 60).padStart(2, "0");
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  // Format sanely for any window length: short rounds get the dramatic MM:SS,
+  // long-lived rounds (e.g. a hosted always-on demo) read as Dd HH:MM, not a
+  // five-figure minute count.
+  const days = Math.floor(totalSecs / 86400);
+  const hours = Math.floor((totalSecs % 86400) / 3600);
+  const mins = Math.floor((totalSecs % 3600) / 60);
+  const secs = totalSecs % 60;
+  let display: string;
+  if (days > 0) display = `${days}d ${pad(hours)}:${pad(mins)}`;
+  else if (hours > 0) display = `${hours}:${pad(mins)}:${pad(secs)}`;
+  else display = `${pad(mins)}:${pad(secs)}`;
 
   // Flat color-block swap as the window closes — no gradient.
   let block = "var(--yellow)";
@@ -44,9 +55,9 @@ export function WaterBreakTimer({ deadlineMs, locked }: { deadlineMs: number; lo
       </div>
       <div
         className="wb-scoreboard-digits"
-        style={{ fontSize: "clamp(48px, 12vw, 88px)", color: fg, lineHeight: 0.95 }}
+        style={{ fontSize: "clamp(44px, 11vw, 84px)", color: fg, lineHeight: 0.95 }}
       >
-        {mm}:{ss}
+        {display}
       </div>
       <div style={{ fontFamily: "var(--wb-font-mono)", fontSize: 12, opacity: 0.8, marginTop: 4, textTransform: "uppercase", letterSpacing: "0.08em" }}>
         {locked ? "Predictions are closed for this round" : "Predictions close in"}
