@@ -1,0 +1,36 @@
+# Dependencies / build output
+node_modules/
+**/node_modules/
+dist/
+build/
+
+# Anchor / Solana build artifacts and KEYPAIRS (never commit these)
+anchor/target/
+anchor/.anchor/
+**/target/
+**/.anchor/
+test-ledger/
+*keypair*.json
+id.json
+
+# Env (values are public, but keep local env out of the repo by convention)
+.env
+.env.*
+!.env.example
+*.local
+
+# Claude Code environment + internal context (not part of the product)
+.claude/
+.superstack/
+
+# OS / editor cruft
+.DS_Store
+.Rhistory
+**/.DS_Store
+
+# Corrupted / superseded copies and unused scaffolding (not part of the project)
+frontend 2/
+app-unused-delete-me/
+mockups-v1-rejected/
+worldcup.zip
+*.zip

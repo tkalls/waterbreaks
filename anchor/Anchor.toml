@@ -1,0 +1,21 @@
+[toolchain]
+
+[features]
+seeds = false
+skip-lint = false
+
+[programs.localnet]
+water_break = "HR51P2C3CHrw76rdtgM181SdyKSMJmyKn8yZq85eGV6Z"
+
+[programs.devnet]
+water_break = "HR51P2C3CHrw76rdtgM181SdyKSMJmyKn8yZq85eGV6Z"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "npx ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

@@ -1,0 +1,220 @@
+/* ============================================================
+   WATER BREAK — flat color-block design system
+   Reference: 2020s Nike / New Balance streetwear campaign graphics
+   with 2000s football energy. Bold flat color blocking, oversized
+   condensed display caps, ticket/boarding-pass utility type.
+   No gradients. No glow. No chrome. Hard-edge offset shadows only.
+   ============================================================ */
+
+:root {
+  /* New canonical palette */
+  --ink: #111111;
+  --paper: #f4eee1;
+  --yellow: #f4e04d;
+  --orange: #e8501f;
+  --red: #e8341f;
+  --navy: #0b2b3c;
+  --lavender: #8b7fd6;
+
+  /* Legacy var names kept as aliases so existing inline styles still
+     resolve — remapped onto the new flat palette. */
+  --wb-yellow: var(--yellow);
+  --wb-yellow-deep: #d8c43a;
+  --wb-green: var(--navy);
+  --wb-green-deep: #06202c;
+  --wb-blue: var(--lavender);
+  --wb-orange: var(--orange);
+  --wb-pink: var(--red);
+  --wb-ink: var(--ink);
+  --wb-paper: var(--paper);
+  --wb-chrome-1: var(--paper);
+  --wb-chrome-2: #c9c2b2;
+  --wb-chrome-3: #6f6a5d;
+
+  --wb-font-display: "Futura PT", "Futura", "Oswald", "Helvetica Neue", Arial, sans-serif;
+  --wb-font-head: "Futura PT", "Futura", "Oswald", "Helvetica Neue", Arial, sans-serif;
+  --wb-font-mono: "Space Mono", "IBM Plex Mono", monospace;
+
+  --wb-radius: 3px;
+  --wb-shadow-pop: 6px 6px 0 var(--ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--wb-font-head);
+  color: var(--ink);
+  background: var(--paper);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Page container — flat paper, no texture overlay anymore. */
+.wb-halftone::before {
+  content: none;
+}
+
+/* Barcode strip — thin black bars, used sparingly (the ticket motif). */
+.wb-stripes {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--ink) 0px,
+    var(--ink) 2px,
+    transparent 2px,
+    transparent 5px
+  );
+}
+
+/* Display headline — flat bold caps, tight tracking. No gradient. */
+.wb-chrome-text {
+  font-family: var(--wb-font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: inherit;
+}
+
+/* Default card = flat dark color block with a hard offset shadow. */
+.wb-card {
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: var(--wb-radius);
+  box-shadow: var(--wb-shadow-pop);
+}
+
+.wb-btn {
+  font-family: var(--wb-font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  border: 2px solid var(--ink);
+  border-radius: var(--wb-radius);
+  padding: 14px 26px;
+  cursor: pointer;
+  color: var(--paper);
+  background: var(--orange);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 0.06s ease, box-shadow 0.06s ease;
+}
+
+.wb-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.wb-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.wb-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.wb-btn--outline {
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.wb-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--wb-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 4px 9px;
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Live indicator — flat red square, blinks via opacity (no glow). */
+.wb-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 0;
+  background: var(--red);
+  animation: wb-blink 1s steps(2, start) infinite;
+}
+
+@keyframes wb-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.wb-scoreboard-digits {
+  font-family: var(--wb-font-mono);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+@keyframes wb-confetti-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(540deg);
+    opacity: 0.9;
+  }
+}
+
+.wb-confetti-piece {
+  position: fixed;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  animation: wb-confetti-fall linear forwards;
+  z-index: 50;
+}
+
+@keyframes wb-pop-in {
+  0% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.wb-pop-in {
+  animation: wb-pop-in 0.22s ease-out;
+}
+
+.wb-progress-track {
+  height: 10px;
+  border-radius: 0;
+  background: rgba(244, 238, 225, 0.18);
+  border: 1px solid rgba(244, 238, 225, 0.25);
+  overflow: hidden;
+}
+
+.wb-progress-fill {
+  height: 100%;
+  border-radius: 0;
+  transition: width 0.4s ease;
+}
