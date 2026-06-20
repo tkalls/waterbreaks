@@ -1,4 +1,4 @@
-# 💧 Water Break
+# waterbreaks
 
 **A live, on-chain prediction game for the dead 90 seconds of a World Cup water break.**
 Fans connect Phantom, call what happens next, and optionally stake 0.1 SOL — settled and paid
