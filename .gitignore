@@ -34,3 +34,6 @@ app-unused-delete-me/
 mockups-v1-rejected/
 worldcup.zip
 *.zip
+
+# Public production config IS committed (no secrets) so Vercel builds zero-config
+!frontend/.env.production
