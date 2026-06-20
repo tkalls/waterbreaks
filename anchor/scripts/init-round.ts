@@ -18,7 +18,9 @@ const OPTIONS: [string, string, string] = [
   "France scores next",
   "No goal this break",
 ];
-const DURATION_SECS = 90;
+// Default 90s (the demo match window). Override with DURATION_SECS for a
+// long-lived round so a hosted/judge URL stays interactive anytime.
+const DURATION_SECS = Number(process.env.DURATION_SECS || "90");
 
 async function main() {
   const provider = anchor.AnchorProvider.env();
